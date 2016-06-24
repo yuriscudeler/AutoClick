@@ -36,13 +36,14 @@
             this.intervalTextBox = new System.Windows.Forms.TextBox();
             this.delayTextBox = new System.Windows.Forms.TextBox();
             this.ClickTimer = new System.Windows.Forms.Timer(this.components);
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // startButton
             // 
             this.startButton.BackColor = System.Drawing.Color.Black;
             this.startButton.ForeColor = System.Drawing.Color.Silver;
-            this.startButton.Location = new System.Drawing.Point(0, 2);
+            this.startButton.Location = new System.Drawing.Point(0, 0);
             this.startButton.Margin = new System.Windows.Forms.Padding(0);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(202, 60);
@@ -54,7 +55,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(26, 94);
+            this.label1.Location = new System.Drawing.Point(26, 110);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(56, 13);
             this.label1.TabIndex = 3;
@@ -63,7 +64,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(16, 121);
+            this.label2.Location = new System.Drawing.Point(16, 137);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(64, 13);
             this.label2.TabIndex = 4;
@@ -72,7 +73,7 @@
             // intervalTextBox
             // 
             this.intervalTextBox.BackColor = System.Drawing.Color.White;
-            this.intervalTextBox.Location = new System.Drawing.Point(85, 114);
+            this.intervalTextBox.Location = new System.Drawing.Point(85, 130);
             this.intervalTextBox.Name = "intervalTextBox";
             this.intervalTextBox.Size = new System.Drawing.Size(100, 20);
             this.intervalTextBox.TabIndex = 2;
@@ -81,7 +82,7 @@
             // delayTextBox
             // 
             this.delayTextBox.BackColor = System.Drawing.Color.White;
-            this.delayTextBox.Location = new System.Drawing.Point(85, 87);
+            this.delayTextBox.Location = new System.Drawing.Point(85, 103);
             this.delayTextBox.Name = "delayTextBox";
             this.delayTextBox.Size = new System.Drawing.Size(100, 20);
             this.delayTextBox.TabIndex = 1;
@@ -91,12 +92,22 @@
             // 
             this.ClickTimer.Tick += new System.EventHandler(this.ClickTimerTick);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(45, 73);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(108, 13);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "F12 to toggle clicking";
+            // 
             // AutoClick
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(202, 176);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.intervalTextBox);
@@ -125,6 +136,7 @@
         private System.Windows.Forms.TextBox intervalTextBox;
         private System.Windows.Forms.TextBox delayTextBox;
         private System.Windows.Forms.Timer ClickTimer;
+        private System.Windows.Forms.Label label3;
     }
 }
 
