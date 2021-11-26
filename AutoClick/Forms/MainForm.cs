@@ -1,34 +1,17 @@
-﻿using AutoClick.Properties;
+﻿using AutoClick.Core;
+using AutoClick.Properties;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AutoClick
 {
-    public partial class AutoClick : Form
+    public partial class MainForm : Form
     {
-        [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
-        public static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint cButtons, uint dwExtraInfo);
-
-        private const int MOUSEEVENTF_LEFTDOWN = 0x02;
-        private const int MOUSEEVENTF_LEFTUP = 0x04;
-        private const int MOUSEEVENTF_RIGHTDOWN = 0x08;
-        private const int MOUSEEVENTF_RIGHTUP = 0x10;
-
-        private int delay;
-        private int interval;
-
         private LowLevelKeyboardListener listener;
+        private AutoClicker autoClicker;
+        private AutoDrag autoDrag;
 
-        public AutoClick()
+        public MainForm()
         {
             InitializeComponent();
         }
@@ -40,11 +23,13 @@ namespace AutoClick
                 this.Location = Preferences.Default.WindowLocation;
             }
 
-            delay = 100;
-            interval = 100;
+            autoClicker = new AutoClicker();
+            intervalTextBox.Text = autoClicker.interval.ToString();
+            // TODO: Load clicker configs
 
-            delayTextBox.Text = delay.ToString();
-            intervalTextBox.Text = interval.ToString();
+            autoDrag = new AutoDrag();
+            textBox1.Text = autoDrag.interval.ToString();
+            // TODO: Load drag configs
 
             listener = new LowLevelKeyboardListener(KeyboardCallback);
             listener.HookKeyboard();
@@ -63,33 +48,55 @@ namespace AutoClick
 
         private void startButton_Click(object sender, EventArgs e)
         {
-            if (ClickTimer.Enabled)
-            {
-                stopClicking();
-            }
-            else
-            {
-                if (interval <= 0)
-                {
-                    return;
-                }
+            ToggleClicking();
+        }
 
-                startClicking();
+        //Keyboard handling
+        public void KeyboardCallback(int key)
+        {
+            if (key == Preferences.Default.ToggleAutoClick && ModifierKeys == Keys.Control)
+            {
+                ToggleClicking();
+            }
+            else if (key == Preferences.Default.ToggleAutoDrag && ModifierKeys == Keys.Control)
+            {
+                ToggleDrag();
+            }
+            else if (key == Preferences.Default.SetPoint1 && ModifierKeys == Keys.Control)
+            {
+                autoDrag.SetPoint1();
+            }
+            else if (key == Preferences.Default.SetPoint2 && ModifierKeys == Keys.Control)
+            {
+                autoDrag.SetPoint2();
             }
         }
 
-        private void delayTextBox_TextChanged(object sender, EventArgs e)
+        private void ToggleClicking()
         {
-            string value = (sender as TextBox).Text;
+            autoClicker.Toggle();
 
-            int tmp = 0;
-            if (int.TryParse(value, out tmp))
+            if (autoClicker.Enabled)
             {
-                delay = tmp;
+                startButton.Text = "Stop";
             }
             else
             {
-                (sender as TextBox).Text = delay.ToString();
+                startButton.Text = "Start";
+            }
+        }
+
+        private void ToggleDrag()
+        {
+            autoDrag.Toggle();
+
+            if (autoDrag.Enabled)
+            {
+                button1.Text = "Stop";
+            }
+            else
+            {
+                button1.Text = "Start";
             }
         }
 
@@ -97,51 +104,33 @@ namespace AutoClick
         {
             string value = (sender as TextBox).Text;
 
-            int tmp = 0;
-            if (int.TryParse(value, out tmp))
+            if (int.TryParse(value, out int tmp))
             {
-                interval = tmp;
+                autoClicker.interval = tmp;
             }
             else
             {
-                (sender as TextBox).Text = interval.ToString();
+                (sender as TextBox).Text = autoClicker.interval.ToString();
             }
         }
 
-        private void ClickTimerTick(object sender, EventArgs e)
+        private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-        }
+            string value = (sender as TextBox).Text;
 
-        private void stopClicking()
-        {
-            ClickTimer.Stop();
-            startButton.Text = "Start";
-        }
-
-        private void startClicking()
-        {
-            startButton.Text = "Stop";
-            ClickTimer.Interval = interval;
-            Thread.Sleep(delay);
-            ClickTimer.Start();
-        }
-
-        //Keyboard handling
-        public void KeyboardCallback(int key)
-        {
-            if (key == Preferences.Default.ToggleClicking)
+            if (int.TryParse(value, out int tmp))
             {
-                if (ClickTimer.Enabled)
-                {
-                    stopClicking();
-                }
-                else
-                {
-                    startClicking();
-                }
+                autoDrag.interval = tmp;
             }
+            else
+            {
+                (sender as TextBox).Text = autoDrag.interval.ToString();
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ToggleDrag();
         }
     }
 }

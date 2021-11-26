@@ -1,12 +1,21 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="AutoClick.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="AutoClick.Properties" GeneratedClassName="Preferences">
   <Profiles />
   <Settings>
     <Setting Name="WindowLocation" Type="System.Drawing.Point" Scope="User">
       <Value Profile="(Default)">0, 0</Value>
     </Setting>
-    <Setting Name="ToggleClicking" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">123</Value>
+    <Setting Name="ToggleAutoClick" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">81</Value>
+    </Setting>
+    <Setting Name="ToggleAutoDrag" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">87</Value>
+    </Setting>
+    <Setting Name="SetPoint1" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">69</Value>
+    </Setting>
+    <Setting Name="SetPoint2" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">82</Value>
     </Setting>
   </Settings>
 </SettingsFile>

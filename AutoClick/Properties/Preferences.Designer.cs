@@ -12,7 +12,7 @@ namespace AutoClick.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.4.0.0")]
     internal sealed partial class Preferences : global::System.Configuration.ApplicationSettingsBase {
         
         private static Preferences defaultInstance = ((Preferences)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Preferences())));
@@ -37,13 +37,49 @@ namespace AutoClick.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("123")]
-        public int ToggleClicking {
+        [global::System.Configuration.DefaultSettingValueAttribute("81")]
+        public int ToggleAutoClick {
             get {
-                return ((int)(this["ToggleClicking"]));
+                return ((int)(this["ToggleAutoClick"]));
             }
             set {
-                this["ToggleClicking"] = value;
+                this["ToggleAutoClick"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("87")]
+        public int ToggleAutoDrag {
+            get {
+                return ((int)(this["ToggleAutoDrag"]));
+            }
+            set {
+                this["ToggleAutoDrag"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("69")]
+        public int SetPoint1 {
+            get {
+                return ((int)(this["SetPoint1"]));
+            }
+            set {
+                this["SetPoint1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("82")]
+        public int SetPoint2 {
+            get {
+                return ((int)(this["SetPoint2"]));
+            }
+            set {
+                this["SetPoint2"] = value;
             }
         }
     }

@@ -58,6 +58,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\AutoDrag.cs" />
+    <Compile Include="Core\MouseController.cs" />
+    <Compile Include="Core\User32.cs" />
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -69,6 +72,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Preferences.settings</DependentUpon>
     </Compile>
+    <Compile Include="Core\AutoClicker.cs" />
     <Compile Include="Util\LowLevelKeyboardListener.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -16,7 +16,7 @@ namespace AutoClick
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new AutoClick());
+            Application.Run(new MainForm());
         }
     }
 }
