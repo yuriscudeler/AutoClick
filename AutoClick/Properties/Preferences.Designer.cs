@@ -82,5 +82,53 @@ namespace AutoClick.Properties {
                 this["SetPoint2"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Point Point1 {
+            get {
+                return ((global::System.Drawing.Point)(this["Point1"]));
+            }
+            set {
+                this["Point1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Point Point2 {
+            get {
+                return ((global::System.Drawing.Point)(this["Point2"]));
+            }
+            set {
+                this["Point2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int ClickInterval {
+            get {
+                return ((int)(this["ClickInterval"]));
+            }
+            set {
+                this["ClickInterval"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int DragInterval {
+            get {
+                return ((int)(this["DragInterval"]));
+            }
+            set {
+                this["DragInterval"] = value;
+            }
+        }
     }
 }

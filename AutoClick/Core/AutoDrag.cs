@@ -82,12 +82,12 @@ namespace AutoClick.Core
             }
         }
 
-        internal void SetPoint1()
+        internal void CapturePoint1()
         {
             point1 = Cursor.Position;
         }
 
-        internal void SetPoint2()
+        internal void CapturePoint2()
         {
             point2 = Cursor.Position;
         }

@@ -20,16 +20,18 @@ namespace AutoClick
         {
             if (Preferences.Default.WindowLocation != null)
             {
-                this.Location = Preferences.Default.WindowLocation;
+                Location = Preferences.Default.WindowLocation;
             }
 
             autoClicker = new AutoClicker();
+            autoClicker.interval = Preferences.Default.ClickInterval > 0 ? Preferences.Default.ClickInterval : 100;
             intervalTextBox.Text = autoClicker.interval.ToString();
-            // TODO: Load clicker configs
 
             autoDrag = new AutoDrag();
+            autoDrag.interval = Preferences.Default.DragInterval > 0 ? Preferences.Default.DragInterval : 100;
+            autoDrag.point1 = Preferences.Default.Point1;
+            autoDrag.point2 = Preferences.Default.Point2;
             textBox1.Text = autoDrag.interval.ToString();
-            // TODO: Load drag configs
 
             listener = new LowLevelKeyboardListener(KeyboardCallback);
             listener.HookKeyboard();
@@ -42,7 +44,13 @@ namespace AutoClick
                 listener.UnHookKeyboard();
             }
 
-            Preferences.Default.WindowLocation = this.Location;
+            // Store preferences
+            Preferences.Default.WindowLocation = Location;
+            Preferences.Default.ClickInterval = autoClicker.interval;
+            Preferences.Default.Point1 = autoDrag.point1;
+            Preferences.Default.Point2 = autoDrag.point2;
+            Preferences.Default.DragInterval = autoDrag.interval;
+
             Preferences.Default.Save();
         }
 
@@ -64,11 +72,11 @@ namespace AutoClick
             }
             else if (key == Preferences.Default.SetPoint1 && ModifierKeys == Keys.Control)
             {
-                autoDrag.SetPoint1();
+                autoDrag.CapturePoint1();
             }
             else if (key == Preferences.Default.SetPoint2 && ModifierKeys == Keys.Control)
             {
-                autoDrag.SetPoint2();
+                autoDrag.CapturePoint2();
             }
         }
 
