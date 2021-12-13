@@ -32,6 +32,8 @@ namespace AutoClick
             autoDrag.point1 = Preferences.Default.Point1;
             autoDrag.point2 = Preferences.Default.Point2;
             textBox1.Text = autoDrag.interval.ToString();
+            textBox2.Text = autoDrag.point1.ToString();
+            textBox3.Text = autoDrag.point2.ToString();
 
             listener = new LowLevelKeyboardListener(KeyboardCallback);
             listener.HookKeyboard();
@@ -73,10 +75,12 @@ namespace AutoClick
             else if (key == Preferences.Default.SetPoint1 && ModifierKeys == Keys.Control)
             {
                 autoDrag.CapturePoint1();
+                textBox2.Text = autoDrag.point1.ToString();
             }
             else if (key == Preferences.Default.SetPoint2 && ModifierKeys == Keys.Control)
             {
                 autoDrag.CapturePoint2();
+                textBox3.Text = autoDrag.point2.ToString();
             }
         }
 
