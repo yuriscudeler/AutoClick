@@ -18,20 +18,15 @@ namespace AutoClick
 
         private void AutoClick_Load(object sender, EventArgs e)
         {
-            if (Preferences.Default.WindowLocation != null)
-            {
-                Location = Preferences.Default.WindowLocation;
-            }
-
             autoClicker = new AutoClicker();
             autoClicker.interval = Preferences.Default.ClickInterval > 0 ? Preferences.Default.ClickInterval : 100;
-            intervalTextBox.Text = autoClicker.interval.ToString();
+            clickIntervalTextBox.Text = autoClicker.interval.ToString();
 
             autoDrag = new AutoDrag();
             autoDrag.interval = Preferences.Default.DragInterval > 0 ? Preferences.Default.DragInterval : 100;
             autoDrag.point1 = Preferences.Default.Point1;
             autoDrag.point2 = Preferences.Default.Point2;
-            textBox1.Text = autoDrag.interval.ToString();
+            dragIntervalTextBox.Text = autoDrag.interval.ToString();
             textBox2.Text = autoDrag.point1.ToString();
             textBox3.Text = autoDrag.point2.ToString();
 
@@ -47,72 +42,42 @@ namespace AutoClick
             }
 
             // Store preferences
-            Preferences.Default.WindowLocation = Location;
             Preferences.Default.ClickInterval = autoClicker.interval;
             Preferences.Default.Point1 = autoDrag.point1;
             Preferences.Default.Point2 = autoDrag.point2;
             Preferences.Default.DragInterval = autoDrag.interval;
 
-            Preferences.Default.Save();
-        }
+            // TODO: save selected keys
 
-        private void startButton_Click(object sender, EventArgs e)
-        {
-            ToggleClicking();
+            Preferences.Default.Save();
         }
 
         //Keyboard handling
         public void KeyboardCallback(int key)
         {
-            if (key == Preferences.Default.ToggleAutoClick && ModifierKeys == Keys.Control)
+            //if (key == Preferences.Default.ToggleClickKey && ModifierKeys == (Keys)Preferences.Default.ToggleClickModifierKey)
+            if (key == Preferences.Default.ToggleClickKey && ModifierKeys == Keys.Shift)
             {
-                ToggleClicking();
+                autoClicker.Toggle();
             }
-            else if (key == Preferences.Default.ToggleAutoDrag && ModifierKeys == Keys.Control)
+            //else if (key == Preferences.Default.ToggleDragKey && ModifierKeys == (Keys)Preferences.Default.ToggleDragModifierKey)
+            else if (key == Preferences.Default.ToggleDragKey && ModifierKeys == Keys.Shift)
             {
-                ToggleDrag();
+                autoDrag.Toggle();
             }
-            else if (key == Preferences.Default.SetPoint1 && ModifierKeys == Keys.Control)
+            else if (key == Preferences.Default.SetPoint1 && ModifierKeys == Keys.Shift)
             {
                 autoDrag.CapturePoint1();
                 textBox2.Text = autoDrag.point1.ToString();
             }
-            else if (key == Preferences.Default.SetPoint2 && ModifierKeys == Keys.Control)
+            else if (key == Preferences.Default.SetPoint2 && ModifierKeys == Keys.Shift)
             {
                 autoDrag.CapturePoint2();
                 textBox3.Text = autoDrag.point2.ToString();
             }
         }
 
-        private void ToggleClicking()
-        {
-            autoClicker.Toggle();
-
-            if (autoClicker.Enabled)
-            {
-                startButton.Text = "Stop";
-            }
-            else
-            {
-                startButton.Text = "Start";
-            }
-        }
-
-        private void ToggleDrag()
-        {
-            autoDrag.Toggle();
-
-            if (autoDrag.Enabled)
-            {
-                button1.Text = "Stop";
-            }
-            else
-            {
-                button1.Text = "Start";
-            }
-        }
-
-        private void intervalTextBox_TextChanged(object sender, EventArgs e)
+        private void clickIntervalTextBox_TextChanged(object sender, EventArgs e)
         {
             string value = (sender as TextBox).Text;
 
@@ -126,7 +91,7 @@ namespace AutoClick
             }
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void dragIntervalTextBox_TextChanged(object sender, EventArgs e)
         {
             string value = (sender as TextBox).Text;
 
@@ -140,9 +105,85 @@ namespace AutoClick
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void autoDragHoldCtrl_CheckedChanged(object sender, EventArgs e)
         {
-            ToggleDrag();
+            autoDrag.holdCtrl = (sender as CheckBox).Checked;
+        }
+
+        private string GetKeyStrokeString(int key, Keys modifiers)
+        {
+            KeysConverter converter = new KeysConverter();
+            string str = string.Empty;
+
+            switch (ModifierKeys)
+            {
+                case Keys.Control | Keys.Alt | Keys.Shift:
+                    str = "CTRL + ALT + SHIFT + ";
+                    break;
+                case Keys.Control | Keys.Alt:
+                    str = "CTRL + ALT + ";
+                    break;
+                case Keys.Control | Keys.Shift:
+                    str = "CTRL + SHIFT + ";
+                    break;
+                case Keys.Alt | Keys.Shift:
+                    str = "ALT + SHIFT + ";
+                    break;
+                case Keys.Control:
+                    str = "CTRL + ";
+                    break;
+                case Keys.Alt:
+                    str = "ALT + ";
+                    break;
+                case Keys.Shift:
+                    str = "SHIFT + ";
+                    break;
+                default:
+                    break;
+            }
+            
+            str += converter.ConvertToString(key);
+
+            return str;
+        }
+
+        private void autoClickToggleKey_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            string value = (sender as TextBox).Text;
+
+            if (int.TryParse(value, out int key))
+            {
+                Preferences.Default.ToggleClickModifierKey = (int)ModifierKeys;
+                Preferences.Default.ToggleClickKey = key;
+
+                (sender as TextBox).Text = GetKeyStrokeString(key, ModifierKeys);
+            }
+            else
+            {
+                (sender as TextBox).Text = GetKeyStrokeString(Preferences.Default.ToggleClickKey, (Keys)Preferences.Default.ToggleClickModifierKey);
+            }
+        }
+
+        private void autoDragToggleKey_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            string value = (sender as TextBox).Text;
+
+            if (int.TryParse(value, out int key))
+            {
+                Preferences.Default.ToggleDragModifierKey = (int)ModifierKeys;
+                Preferences.Default.ToggleDragKey = key;
+
+                (sender as TextBox).Text = GetKeyStrokeString(key, ModifierKeys);
+            }
+            else
+            {
+                (sender as TextBox).Text = GetKeyStrokeString(Preferences.Default.ToggleDragKey, (Keys)Preferences.Default.ToggleDragModifierKey);
+            }
+        }
+
+        private void mouseBtnCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            autoClicker.rightClick = (sender as CheckBox).Checked;
         }
     }
 }

@@ -11,14 +11,16 @@ namespace AutoClick.Core
     public class AutoClicker
     {
         private MouseController mouse;
-        private Timer Timer1;
+        private Timer leftClickTimer;
+        private Timer rightClickTimer;
         public int interval;
+        public bool rightClick = false;
 
         public bool Enabled
         {
             get
             {
-                return Timer1 != null && Timer1.Enabled;
+                return leftClickTimer != null && leftClickTimer.Enabled;
             }
         }
 
@@ -26,18 +28,26 @@ namespace AutoClick.Core
         {
             interval = 100;
             mouse = new MouseController();
-            Timer1 = new Timer(interval);
-            Timer1.Elapsed += TimerElapsed;
+            leftClickTimer = new Timer(interval);
+            leftClickTimer.Elapsed += LeftClick_TimerElapsed;
+            rightClickTimer = new Timer(interval);
+            rightClickTimer.Elapsed += RightClick_TimerElapsed;
         }
 
-        private void TimerElapsed(object sender, EventArgs e)
+        private void LeftClick_TimerElapsed(object sender, EventArgs e)
         {
             mouse.LeftClick();
         }
 
+        private void RightClick_TimerElapsed(object sender, EventArgs e)
+        {
+            mouse.RightClick();
+        }
+
         private void stopClicking()
         {
-            Timer1.Stop();
+            leftClickTimer.Stop();
+            rightClickTimer.Stop();
         }
 
         private void startClicking()
@@ -47,13 +57,22 @@ namespace AutoClick.Core
                 return;
             }
 
-            Timer1.Interval = interval;
-            Timer1.Start();
+            leftClickTimer.Interval = interval;
+            rightClickTimer.Interval = interval;
+
+            if (rightClick)
+            {
+                rightClickTimer.Start();
+            }
+            else
+            {
+                leftClickTimer.Start();
+            }
         }
 
         internal void Toggle()
         {
-            if (Timer1.Enabled)
+            if (leftClickTimer.Enabled || rightClickTimer.Enabled)
             {
                 stopClicking();
             }

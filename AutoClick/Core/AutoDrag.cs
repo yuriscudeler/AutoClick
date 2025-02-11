@@ -42,7 +42,7 @@ namespace AutoClick.Core
 
             mouse.MoveTo(point1);
             mouse.LeftDown();
-            Thread.Sleep(5);
+            Thread.Sleep(10);
             mouse.MoveTo(point2);
             mouse.LeftUp();
 

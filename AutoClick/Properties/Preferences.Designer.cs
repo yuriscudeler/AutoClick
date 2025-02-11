@@ -12,7 +12,7 @@ namespace AutoClick.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.4.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.2.0.0")]
     internal sealed partial class Preferences : global::System.Configuration.ApplicationSettingsBase {
         
         private static Preferences defaultInstance = ((Preferences)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Preferences())));
@@ -25,37 +25,25 @@ namespace AutoClick.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
-        public global::System.Drawing.Point WindowLocation {
-            get {
-                return ((global::System.Drawing.Point)(this["WindowLocation"]));
-            }
-            set {
-                this["WindowLocation"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("81")]
-        public int ToggleAutoClick {
+        public int ToggleClickKey {
             get {
-                return ((int)(this["ToggleAutoClick"]));
+                return ((int)(this["ToggleClickKey"]));
             }
             set {
-                this["ToggleAutoClick"] = value;
+                this["ToggleClickKey"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("87")]
-        public int ToggleAutoDrag {
+        public int ToggleDragKey {
             get {
-                return ((int)(this["ToggleAutoDrag"]));
+                return ((int)(this["ToggleDragKey"]));
             }
             set {
-                this["ToggleAutoDrag"] = value;
+                this["ToggleDragKey"] = value;
             }
         }
         
@@ -128,6 +116,30 @@ namespace AutoClick.Properties {
             }
             set {
                 this["DragInterval"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int ToggleClickModifierKey {
+            get {
+                return ((int)(this["ToggleClickModifierKey"]));
+            }
+            set {
+                this["ToggleClickModifierKey"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int ToggleDragModifierKey {
+            get {
+                return ((int)(this["ToggleDragModifierKey"]));
+            }
+            set {
+                this["ToggleDragModifierKey"] = value;
             }
         }
     }

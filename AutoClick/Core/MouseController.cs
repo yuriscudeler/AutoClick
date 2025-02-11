@@ -29,24 +29,24 @@ namespace AutoClick.Core
             RightClick(0, 0);
         }
 
-        internal void LeftClick(uint x, uint y)
+        private void LeftClick(uint x, uint y)
         {
             User32.mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, x, y, 0, 0);
         }
 
-        internal void RightClick(uint x, uint y)
+        private void RightClick(uint x, uint y)
         {
             User32.mouse_event(MOUSEEVENTF_RIGHTDOWN | MOUSEEVENTF_RIGHTUP, x, y, 0, 0);
         }
 
-        internal void LeftDoubleClick(uint x, uint y)
+        private void LeftDoubleClick(uint x, uint y)
         {
             User32.mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, x, y, 0, 0);
             Thread.Sleep(100);
             User32.mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, x, y, 0, 0);
         }
 
-        internal void RightDoubleClick(uint x, uint y)
+        private void RightDoubleClick(uint x, uint y)
         {
             User32.mouse_event(MOUSEEVENTF_RIGHTDOWN | MOUSEEVENTF_RIGHTUP, x, y, 0, 0);
             Thread.Sleep(100);
@@ -55,7 +55,6 @@ namespace AutoClick.Core
 
         internal void LeftDown()
         {
-            
             User32.mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
         }
 
