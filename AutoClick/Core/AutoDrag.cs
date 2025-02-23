@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using System.Threading;
-using System.Timers;
 using System.Windows.Forms;
 
 namespace AutoClick.Core
@@ -9,6 +8,7 @@ namespace AutoClick.Core
     public class AutoDrag
     {
         private MouseController mouse;
+        private KeyboardController keyboard;
         private System.Timers.Timer Timer1;
         public int interval;
         public Point point1;
@@ -27,6 +27,7 @@ namespace AutoClick.Core
         {
             interval = 2000;
             mouse = new MouseController();
+            keyboard = new KeyboardController();
             Timer1 = new System.Timers.Timer(interval);
             Timer1.Elapsed += TimerElapsed;
         }
@@ -35,21 +36,11 @@ namespace AutoClick.Core
         {
             Timer1.Stop();
 
-            if (holdCtrl)
-            {
-                // press ctrl
-            }
-
             mouse.MoveTo(point1);
             mouse.LeftDown();
             Thread.Sleep(10);
             mouse.MoveTo(point2);
             mouse.LeftUp();
-
-            if (holdCtrl)
-            {
-                // release ctrl
-            }
 
             Timer1.Start();
         }
@@ -57,6 +48,11 @@ namespace AutoClick.Core
         private void stopDrag()
         {
             Timer1.Stop();
+
+            if (holdCtrl)
+            {
+                keyboard.Release(Keys.Control);
+            }
         }
 
         private void startDrag()
@@ -67,6 +63,12 @@ namespace AutoClick.Core
             }
 
             Timer1.Interval = interval;
+
+            if (holdCtrl)
+            {
+                keyboard.Press(Keys.Control);
+            }
+
             Timer1.Start();
         }
 

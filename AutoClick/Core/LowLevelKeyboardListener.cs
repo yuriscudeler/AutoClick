@@ -1,11 +1,8 @@
-﻿using AutoClick.Core;
-using System;
-using System.ComponentModel;
+﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
 
-namespace AutoClick
+namespace AutoClick.Core
 {
     public class LowLevelKeyboardListener
     {
@@ -33,7 +30,7 @@ namespace AutoClick
             using (ProcessModule module = process.MainModule)
             {
                 IntPtr handle = GetModuleHandle(module.ModuleName);
-                HookID = User32.SetWindowsHookEx(WH_KEYBOARD_LL, HookCallback, handle, 0);
+                HookID = WinApi.SetWindowsHookEx(WH_KEYBOARD_LL, HookCallback, handle, 0);
 
                 if (HookID == null)
                 {
@@ -44,7 +41,7 @@ namespace AutoClick
 
         public void UnHookKeyboard()
         {
-            User32.UnhookWindowsHookEx(HookID);
+            WinApi.UnhookWindowsHookEx(HookID);
         }
 
         /// <summary>
@@ -62,7 +59,7 @@ namespace AutoClick
                 int vkCode = Marshal.ReadInt32(lParam);
                 Callback(vkCode);
             }
-            return User32.CallNextHookEx(HookID, nCode, wParam, lParam);
+            return WinApi.CallNextHookEx(HookID, nCode, wParam, lParam);
         }
     }
 }
